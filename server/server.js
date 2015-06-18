@@ -1,12 +1,11 @@
 var express = require('express');
-var app = express;
+var app = express();
 var mongodb = require('mongodb');
 var MongoClient = mongodb.MongoClient;
 var ObjectID = mongodb.ObjectID;
 var MongoConnectURL = "mongodb://<jrdevleague>:<devleague>@ds047812.mongolab.com:47812/jrdevleague";
 var fs = require('fs');
-
-app.use(express.static('public'));
+// app.use(express.static('public'));
 
 var server = app.listen(3000, function (){
   var host = server.address().address;
