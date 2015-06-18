@@ -1,7 +1,5 @@
 $(function(){
 
-
-
 // This will target the submit_button ID & attach a click event, which runs a function.
   $("#submit_button").click(function(){
 

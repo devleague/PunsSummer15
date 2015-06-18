@@ -1,0 +1,24 @@
+{
+  "name": "jrDevLeague",
+  "version": "1.0.0",
+  "description": "So you want to build an app? (Punahou Summer School Studen Application Template)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Dmeowmixer/PunsSummer15.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Dmeowmixer/PunsSummer15/issues"
+  },
+  "homepage": "https://github.com/Dmeowmixer/PunsSummer15",
+  "dependencies": {
+    "express": "^4.12.4",
+    "mongodb": "^2.0.34",
+    "mongoose": "^4.0.5"
+  }
+}
