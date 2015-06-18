@@ -13,7 +13,7 @@ $(function(){
     console.log(user_in);
 
     // This will target the ID main_list(#main_list) and append (add on) a LI element with the variable we created earlier. 
-    $("#main_list").append("<li>" + user_in);
+    $("#main_list").append("<li class='list_item'>" + user_in);
     // This will create a variable named last_li setting the value to the last created li element in the #main_list element
     var last_li = $("#main_list").find('li:last');
 
@@ -21,10 +21,25 @@ $(function(){
     $(last_li).append('<input class="delete_button" type="button" value="delete">');
     $(last_li).prepend('<input class="checkbox" type="checkbox">');
 
-// 
-// NEED TO BUILD A WAY TO TELL IF ITEM IS COMPLETE OR NOT..
-// 
-  
+// This block of code puts a click event on each 
+    $(".checkbox").click(function(){
+      var parentLi = $(".checkbox").closest("li");
+    
+      // if($(".checkbox").prop("checked")){
+      if($(this).prop("checked")){
+
+        console.log($(this));
+        // $(this).parent().css("text-decoration", "line-through");     
+        $(this).parent().css("text-decoration", "line-through");
+      
+        
+      } else {
+        // $(this).parent().css("text-decoration","none");
+            parentLi.css("text-decoration", "none");
+      }
+    });
+
+    
 
   
     // We target classes with a . before the name and ids with a # before the name so .delete_button and #main_list!
