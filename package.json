@@ -17,7 +17,9 @@
   },
   "homepage": "https://github.com/Dmeowmixer/PunsSummer15",
   "dependencies": {
+    "body-parser": "^1.13.1",
     "express": "^4.12.4",
+    "jade": "^1.11.0",
     "mongodb": "^2.0.34",
     "mongoose": "^4.0.5"
   }

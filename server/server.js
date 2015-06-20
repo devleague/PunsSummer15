@@ -7,7 +7,6 @@ var express = require('express');
 var app = express();
 var mongoose = require('mongoose');
 
-
 app.use(express.static(__dirname + '/../public'));
 app.set('view engine' , 'jade');
 app.get('/', function (req,res){
@@ -19,7 +18,6 @@ var server = app.listen(3001, function (){
   var port = server.address().port;
   console.log('Example app listening at http://%s:%s', host, port);
 });
-
  
 var todoitam = mongoose.model('todoitam',{
   id:Number,
@@ -58,43 +56,43 @@ app.post('/todoitam',function (req, res){
   // console.log( req.body );
   // res.send('puppies');
 
-  fs.writeFile('./public/todo.txt', req.body.list_to_save, function (err){
-    if (err) return console.log(err);
-  });
+  // fs.writeFile('./public/todo.txt', req.body.list_to_save, function (err){
+  //   if (err) return console.log(err);
+  // });
 
 });
 
-// app.get('/',function (req, res){
-//   MongoClient.connect(MongoConnectURL, function(err, db) {
-//     if (err) {
-//       throw err;
-//     }
-//     var collection = db.collection('todos');
-//     collection.find().toArray(function(err, docs){
-//       if(err) {
-//         throw err;
-//       }
-//       res.send(docs);
-//     });
-//   });
-// });
+app.get('/',function (req, res){
+  MongoClient.connect(MongoConnectURL, function(err, db) {
+    if (err) {
+      throw err;
+    }
+    var collection = db.collection('todos');
+    collection.find().toArray(function(err, docs){
+      if(err) {
+        throw err;
+      }
+      res.send(docs);
+    });
+  });
+});
 
 
-// app.delete('/items/:item_id', function (req, res){
-//   console.log(req.params.id);
-//   MongoClient.connect('mongodb://localhost:27017/todosdb', function(err, db) {
-//     if (err) {
-//       throw err;
-//     }
-//     connect_to_db( function ( collection ) {
-//       var _id = req.params.item_id;
-//       collection.remove({"_id": new ObjectID( _id )}, function (err, result) {
-//         if( err ){
-//           throw err;
-//         }
-//         res.json({ success : "success" });
-//         collection.db.close();
-//       });
-//     });
-//   });
-// });
+app.delete('/todoitam/:item_id', function (req, res){
+  console.log(req.params.id);
+  MongoClient.connect(MongoConnectURL, function(err, db) {
+    if (err) {
+      throw err;
+    }
+    connect_to_db( function ( collection ) {
+      var _id = req.params.item_id;
+      collection.remove({"_id": new ObjectID( _id )}, function (err, result) {
+        if( err ){
+          throw err;
+        }
+        res.json({ success : "success" });
+        collection.db.close();
+      });
+    });
+  });
+});
