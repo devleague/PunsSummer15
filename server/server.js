@@ -1,21 +1,35 @@
-var express = require('express');
-var app = express();
 var mongodb = require('mongodb');
 var MongoClient = mongodb.MongoClient;
 var ObjectID = mongodb.ObjectID;
 var MongoConnectURL = "mongodb://jrdevleague:devleague@ds047812.mongolab.com:47812/jrdevleague";
-var fs = require('fs');
-// app.use(express.static('public'));
+var bodyParser = require('body-parser');
+var express = require('express');
+var app = express();
+var mongoose = require('mongoose');
 
-var server = app.listen(3000, function (){
+
+app.use(express.static(__dirname + '/../public'));
+app.set('view engine' , 'jade');
+app.get('/', function (req,res){
+  res.render('index', {});
+});
+
+var server = app.listen(3001, function (){
   var host = server.address().address;
   var port = server.address().port;
   console.log('Example app listening at http://%s:%s', host, port);
 });
 
-app.post('/item',function (req, res){
+ 
+var todoitam = mongoose.model('todoitam',{
+  id:Number,
+  content:String,
+  title:String
+});
+
+app.post('/todoitam',function (req, res){
   // Note the db name todosdb in the connection string
-  MongoClient.connect('mongodb://localhost:27017/todosdb', function(err, db) {
+  MongoClient.connect(MongoConnectURL, function(err, db) {
     if (err) {
       throw err;
     }
@@ -50,36 +64,37 @@ app.post('/item',function (req, res){
 
 });
 
-app.get('/items',function (req, res){
-  MongoClient.connect('mongodb://localhost:27017/todosdb', function(err, db) {
-    if (err) {
-      throw err;
-    }
-    var collection = db.collection('todos');
-    collection.find().toArray(function(err, docs){
-      if(err) {
-        throw err;
-      }
-      res.send(docs);
-    });
-  });
-});
+// app.get('/',function (req, res){
+//   MongoClient.connect(MongoConnectURL, function(err, db) {
+//     if (err) {
+//       throw err;
+//     }
+//     var collection = db.collection('todos');
+//     collection.find().toArray(function(err, docs){
+//       if(err) {
+//         throw err;
+//       }
+//       res.send(docs);
+//     });
+//   });
+// });
 
-app.delete('/items/:item_id', function (req, res){
-  console.log(req.params.id);
-  MongoClient.connect('mongodb://localhost:27017/todosdb', function(err, db) {
-    if (err) {
-      throw err;
-    }
-    connect_to_db( function ( collection ) {
-      var _id = req.params.item_id;
-      collection.remove({"_id": new ObjectID( _id )}, function (err, result) {
-        if( err ){
-          throw err;
-        }
-        res.json({ success : "success" });
-        collection.db.close();
-      });
-    });
-  });
-});
+
+// app.delete('/items/:item_id', function (req, res){
+//   console.log(req.params.id);
+//   MongoClient.connect('mongodb://localhost:27017/todosdb', function(err, db) {
+//     if (err) {
+//       throw err;
+//     }
+//     connect_to_db( function ( collection ) {
+//       var _id = req.params.item_id;
+//       collection.remove({"_id": new ObjectID( _id )}, function (err, result) {
+//         if( err ){
+//           throw err;
+//         }
+//         res.json({ success : "success" });
+//         collection.db.close();
+//       });
+//     });
+//   });
+// });
