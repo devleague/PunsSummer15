@@ -5,27 +5,31 @@ var path = require('path');
 var databaseService = require('./server/services/database.js');
 
 app.use(express.static(__dirname + '/public'));
+app.use(bodyParser);
 app.set('view engine' , 'jade');
-app.set('views', path.join(__dirname + '/server/views/'));
+app.set('views', path.join(__dirname + '/server/views'));
 
 app.get('/', function (req,res){
-  res.render('index', {});
+  console.log('hey');
+  return res.render('index', {});
 });
 
-app.get('/',function (req, res){
-  databaseService.getTodos(function(err, todos){
-    if(err){
-      return res.status(500).send(err);
-    }
+// app.get('/',function (req, res){
+//   databaseService.getTodos(function(err, todos){
+//     if(err){
+//       return res.status(500).send(err);
+//     }
 
-    return res.render('index', {todos: todos});
-  });
-});
+//     console.log(todos);
+//     return res.render('index', {todos: todos});
+//   });
+// });
  
 app.post('/todoitam',function (req, res){
-  var item = req.body.new_item;
+  console.log(req.body);
+  var item = req.body;
 
-  if(!item){
+  if(!item || !item.title){
     return res.status(500).send({error: 'Invalid item'});
   }
 
