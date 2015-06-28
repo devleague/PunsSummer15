@@ -9,7 +9,7 @@ $(function(){
 
 
   function addUserInput(userInput){
-    $.post("/todoitam", 
+    $.post("/todo", 
       {
         title: userInput
       })
@@ -19,7 +19,7 @@ $(function(){
 
       // We target classes with a . before the name and ids with a # before the name so .delete_button and #main_list!
       $(".delete_button").click(function(){
-        $.ajax('/items/'+ data._id,
+        $.ajax('/todo/'+ data._id,
           { 
             type:"DELETE",
           })

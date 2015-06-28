@@ -1,31 +1,28 @@
-var bodyParser = require('body-parser');
 var express = require('express');
 var app = express();
+var bodyParser = require('body-parser');
 var path = require('path');
 var databaseService = require('./server/services/database.js');
 
-app.use(express.static(__dirname + '/public'));
-app.use(bodyParser);
 app.set('view engine' , 'jade');
 app.set('views', path.join(__dirname + '/server/views'));
 
-app.get('/', function (req,res){
-  console.log('hey');
-  return res.render('index', {});
+app.use(express.static(__dirname + '/public'));
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
+
+app.get('/',function (req, res){
+  databaseService.getTodos(function(err, todos){
+    if(err){
+      return res.status(500).send(err);
+    }
+
+    console.log(todos);
+    return res.render('index', {todos: todos});
+  });
 });
-
-// app.get('/',function (req, res){
-//   databaseService.getTodos(function(err, todos){
-//     if(err){
-//       return res.status(500).send(err);
-//     }
-
-//     console.log(todos);
-//     return res.render('index', {todos: todos});
-//   });
-// });
  
-app.post('/todoitam',function (req, res){
+app.post('/todo',function (req, res){
   console.log(req.body);
   var item = req.body;
 
@@ -41,8 +38,8 @@ app.post('/todoitam',function (req, res){
   });
 });
 
-app.delete('/todoitam/:item_id', function (req, res){
-  var itemId = req.params.item_id;
+app.delete('/todo/:id', function (req, res){
+  var itemId = req.params.id;
 
   databaseService.deleteTodo(itemId, function(err, callback){
     if(err){
