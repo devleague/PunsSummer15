@@ -128,7 +128,7 @@ $(document).ready(function(){
     // This will target the ID main_list(#main_list) and append 
     // (add on) a LI element and put it in a variable so we can keep track of it
     var last_li = $("<li id='" + todo._id + "' class='list_item'>" + todo.title + "</li>");
-    last_li.appendTo('#main_list');
+    last_li.prependTo('#main_list');
 
     // notice when targeting a created variable we don't enter it as a string.
     $(last_li).append('<input class="delete_button" type="button" value="delete">');
