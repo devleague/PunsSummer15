@@ -1,10 +1,10 @@
 var mongodb = require('mongodb');
 var MongoClient = mongodb.MongoClient;
 var ObjectID = mongodb.ObjectID;
-var MongoConnectURL = "mongodb://jrdevleague:devleague@ds047812.mongolab.com:47812/jrdevleague";
+// var MongoConnectURL = "mongodb://jrdevleague:devleague@ds047812.mongolab.com:47812/jrdevleague";
+var MongoConnectURL = 'mongodb://localhost:27017/todos';
 
-exports.createTodo = function(callback){
-
+exports.createTodo = function(item, callback){
   // Note the db name todosdb in the connection string
   MongoClient.connect(MongoConnectURL, function(err, db) {
     if (err) {
@@ -16,16 +16,43 @@ exports.createTodo = function(callback){
 
     // Insert a document into the collection
     collection.insert({
-      title: req.body.new_item.title,
-      completed: req.body.new_item.completed
-    }, function(err, newItem) {
-      // Close the db connection
-      db.close();
+      title: item.title,
+      completed: false 
+    }, function(err, result) {
+        if(err){
+          throw err;
+        }
+        // Close the db connection
+        db.close();
 
-      return callback(null, newItem);
-    }); // End of function(err, newItem) callback
+        var newItem = result.ops[0];
+        return callback(null, newItem);
+    }); 
   });
 };
+
+
+exports.updateTodo = function(item, callback){
+  MongoClient.connect(MongoConnectURL, function(err, db){
+    if(err){
+      throw err;
+    }
+
+
+    var collection = db.collection('todos');
+
+    //Update a document in the collection
+    collection.update({"_id": new ObjectID(item.id)}, {$set:{completed:item.completed}}, function(err, result){
+     if(err){
+      throw err;
+     }
+
+     db.close();
+
+     return callback(null);
+    });
+  });
+}
 
 
 exports.getTodos = function(callback){
@@ -42,7 +69,7 @@ exports.getTodos = function(callback){
 
       db.close();
 
-      return callback(null, todos);
+      return callback(null, todos)
     });
   });
 };
@@ -53,6 +80,9 @@ exports.deleteTodo = function(todoId, callback) {
     if (err) {
       throw err;
     }
+    
+    var collection = db.collection('todos');
+
     collection.remove({"_id": new ObjectID(todoId)}, function (err, result) {
       if( err ){
         throw err;
@@ -60,7 +90,7 @@ exports.deleteTodo = function(todoId, callback) {
 
       db.close();
 
-      return callback(null, {success: "success"});
+      return callback(null);
     });
   });
 };
