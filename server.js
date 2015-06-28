@@ -47,7 +47,6 @@ app.post('/todo',function (req, res){
 app.put('/todo/:id', function(req, res){
   var item = req.body;
 
-  console.log(item);
   if(!item || !item.id || !item.completed){
     return res.status(500).send({error: 'Invalid item'});
   }
