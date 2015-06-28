@@ -42,7 +42,7 @@ exports.getTodos = function(callback){
 
       db.close();
 
-      return callback(null, todos)
+      return callback(null, todos);
     });
   });
 };
