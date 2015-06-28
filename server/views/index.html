@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <!-- the head tag (similar to head of humans) always at the top -->
 <head>
   <meta charset="UTF-8">
   <title>Application Template</title>
 </head>
+
 <!-- body tag similar to humans, where all the content is (our guts!) -->
 <body>
 
-<!-- these are examples of a h1 element (everything within this tag has larger text, usually used for important text and such, there are h2, h3 ,h4,h5 and h6 elements ranging in size) 
-and p tags which are paragraphs (similar to our paragraphs in english-->
+  <!-- these are examples of a h1 element (everything within this tag has larger text, usually used for important text and such, there are h2, h3 ,h4,h5 and h6 elements ranging in size) and p tags which are paragraphs (similar to our paragraphs in english-->
 
   <h1> Hello Welcome to YOUR Application Template!</h1>
 
@@ -18,28 +19,30 @@ and p tags which are paragraphs (similar to our paragraphs in english-->
   <p class="ransons_cool"> You will be using this List Application template to build your web application, feel free to delete and add anything as you please!</p>
 
   <p class="very_cool">This element has a different class but is the same p tag as the one above, in cases like this we need the different classes or ID's to single each element out for styling/manipulation </p>
+
   <!-- creates the input field with an ID of user_input -->
   <input id="user_input" type="text">
+
   <!-- creates the submit button (which is also a input field, try to keep a similar naming convention throughout your application for reading purposes) -->
   <input id="submit_button" type="submit">
   
-<!-- creates the outer UnorderedList for our created LI elements to be added to  -->
+  <!-- creates the outer UnorderedList for our created LI elements to be added to  -->
   <ul id="main_list">
     
     <!-- remember almost all tags have an opening and closing -->
+
   </ul>
   <input id='save_button' type='button' value='Save'>
 
-
-
-<!-- These are our script includes, which take external files/ libraries and allows this HTML file to read from them. -->
-  <script src="/code.jquery.com/jquery-1.11.3.min.js"></script>
-  <script src="/code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+  <!-- These are our script includes, which take external files/ libraries and allows this HTML file to read from them. -->
+  <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+  <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 
   <!-- this specific script include is for our APP.JS file which is in the JS directory -->
-  <script src="./public/js/app.js"></script>
+  <script src="/js/app.js"></script>
+
   <!-- this one will include the styles file -->
-  <script src="./public/styles/styles.css"></script>
+  <script src="/styles/styles.css"></script>
 <!--   <script src="/server.js"></script> -->
 </body>
 </html>
